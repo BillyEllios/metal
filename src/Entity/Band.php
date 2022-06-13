@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BandRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityManager;
 
@@ -19,6 +21,22 @@ class Band
 
     #[ORM\Column(type: 'date')]
     private $date;
+
+    #[ORM\ManyToMany(targetEntity: Member::class, inversedBy: 'bands')]
+    private $members;
+
+    #[ORM\ManyToMany(targetEntity: Style::class, inversedBy: 'bands')]
+    private $styles;
+
+    #[ORM\ManyToMany(targetEntity: Concert::class, inversedBy: 'bands')]
+    private $concerts;
+
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+        $this->styles = new ArrayCollection();
+        $this->concerts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +63,78 @@ class Band
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Member>
+     */
+    public function getMembers(): Collection
+    {
+        return $this->members;
+    }
+
+    public function addMember(Member $member): self
+    {
+        if (!$this->members->contains($member)) {
+            $this->members[] = $member;
+        }
+
+        return $this;
+    }
+
+    public function removeMember(Member $member): self
+    {
+        $this->members->removeElement($member);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Style>
+     */
+    public function getStyles(): Collection
+    {
+        return $this->styles;
+    }
+
+    public function addStyle(Style $style): self
+    {
+        if (!$this->styles->contains($style)) {
+            $this->styles[] = $style;
+        }
+
+        return $this;
+    }
+
+    public function removeStyle(Style $style): self
+    {
+        $this->styles->removeElement($style);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Concert>
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts[] = $concert;
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        $this->concerts->removeElement($concert);
 
         return $this;
     }
