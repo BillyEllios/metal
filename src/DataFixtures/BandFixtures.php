@@ -3,11 +3,18 @@
 namespace App\DataFixtures;
 
 use App\Entity\Band;
+use App\Repository\MemberRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class BandFixtures extends Fixture
 {
+    public function __construct(
+        private MemberRepository $memberRepository,)
+    {
+        
+    }
+
     public function load(ObjectManager $manager)
     {
         $band = [];
