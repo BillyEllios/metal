@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BandRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityManager;
 
 #[ORM\Entity(repositoryClass: BandRepository::class)]
 class Band
