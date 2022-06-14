@@ -21,6 +21,11 @@ class Instrument
     #[ORM\ManyToMany(targetEntity: Member::class, mappedBy: 'instruments')]
     private $members;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
@@ -29,6 +34,11 @@ class Instrument
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): ?int
+    {
+        return $this->id = $id;
     }
 
     public function getName(): ?string

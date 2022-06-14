@@ -2,21 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Role;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class RoleCrudController extends AbstractCrudController
+class MemberCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Role::class;
+        return Member::class;
     }
 
     public function configureActions(Actions $actions): Actions
@@ -31,7 +30,9 @@ class RoleCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
-            AssociationField::new('members')
+            AssociationField::new('bands'),
+            AssociationField::new('roles'),
+            AssociationField::new('instruments')
         ];
     }
 }

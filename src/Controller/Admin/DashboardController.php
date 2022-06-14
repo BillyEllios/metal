@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Band;
 use App\Entity\Instrument;
+use App\Entity\Member;
 use App\Entity\Style;
 use App\Entity\Role;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -55,5 +56,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Instrument', 'fas fa-list', Instrument::class);
         yield MenuItem::linkToCrud('Role', 'fas fa-list', Role::class);
         yield MenuItem::linkToCrud('Style', 'fas fa-list', Style::class);
+        yield MenuItem::linkToCrud('Member', 'fas fa-list', Member::class);
     }
 }

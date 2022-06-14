@@ -28,19 +28,25 @@ class Band
     #[ORM\ManyToMany(targetEntity: Style::class, inversedBy: 'bands')]
     private $styles;
 
-    #[ORM\ManyToMany(targetEntity: Concert::class, inversedBy: 'bands')]
-    private $concerts;
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function __construct()
     {
         $this->members = new ArrayCollection();
         $this->styles = new ArrayCollection();
-        $this->concerts = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): ?int
+    {
+        return $this->id = $id;
     }
 
     public function getName(): ?string
@@ -111,30 +117,6 @@ class Band
     public function removeStyle(Style $style): self
     {
         $this->styles->removeElement($style);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Concert>
-     */
-    public function getConcerts(): Collection
-    {
-        return $this->concerts;
-    }
-
-    public function addConcert(Concert $concert): self
-    {
-        if (!$this->concerts->contains($concert)) {
-            $this->concerts[] = $concert;
-        }
-
-        return $this;
-    }
-
-    public function removeConcert(Concert $concert): self
-    {
-        $this->concerts->removeElement($concert);
 
         return $this;
     }

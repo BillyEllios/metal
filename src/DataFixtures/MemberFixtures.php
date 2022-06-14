@@ -8,20 +8,28 @@ use Doctrine\Persistence\ObjectManager;
 
 class MemberFixtures extends Fixture
 {
+
     public function load(ObjectManager $manager)
     {
         $member = [];
-        $date = [];
-        $members = ['Corey Taylor', 'Alessandro Venturella', 'Jay Weinberg', 'Shawn Crahan', 'Craig Jones', 'Mick Thomson', 'Sid Wilson', 'James Root', 'Michael Pfaff'];
-        $dates = ['1973','1984','1980','1969',''];
+        $members = ['Corey Taylor'=>'1973', 'Alessandro Venturella'=>'1984', 
+        'Jay Weinberg'=>'1980', 'Shawn Crahan'=>'1969', 
+        'Craig Jones'=>'1971', 'Mick Thomson'=>'1982', 
+        'Sid Wilson'=>'1976', 'James Root'=>'1971', 'Michael Pfaff'=>'1968',
+        'James Hetfield'=>'1969','Lars Ulrich'=>'1969', 
+        'Kirk Hammett'=>'1968','Robert Trujillo'=>'1970',
+        'Ville Viljanen'=>'1980','Andy Gilion'=>'1976',
+        'Teemu Heinola'=>'1974','Mikko Sipola'=>'1980',
+        'Andreas Kisser'=>'1980','Derrick Green'=>'1975',
+        'Paulo Jr.'=>'1968','Eloy Casagrande'=>'1991'
+    ];
     
-        for ($i = 0; $i < $members; $i++) {
+        foreach ($members as $member => $date) {
             $member = (new Member())
-                ->setName($members[$i])
-                ->setDate(new \DateTime($dates[$i]));
+                ->setName($member)
+                ->setDate(new \DateTime($date));
             $manager->persist($member);
         }
-
         $manager->flush();
     }
 }
